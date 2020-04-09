@@ -5,8 +5,7 @@
 struct Geometry {
 public:
   void init(Directx *dx, float x, float y, float w, float h);
-  void update_uv(Directx *dx);
-  void update_pos(Directx *dx);
+  void update(Directx *dx);
   void set_uv(float u[4], float v[4]);
   void scale(XMFLOAT3 scaler);
 public:
