@@ -31,14 +31,7 @@ void Geometry::init(Directx *dx, float x, float y, float w, float h) {
   DX::ThrowIfFailed(dx->device->CreateBuffer(&bd, &init_data, &vertex_buffer));
 }
 
-void Geometry::update_uv(Directx *dx) {
-  D3D11_MAPPED_SUBRESOURCE resource;
-  dx->device_context->Map(vertex_buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &resource);
-  memcpy(resource.pData, &vertices[0], sizeof(Vertex) * vertices.size());
-  dx->device_context->Unmap(vertex_buffer, 0);
-}
-
-void Geometry::update_pos(Directx *dx) {
+void Geometry::update(Directx *dx) {
   D3D11_MAPPED_SUBRESOURCE resource;
   dx->device_context->Map(vertex_buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &resource);
   memcpy(resource.pData, &vertices[0], sizeof(Vertex) * vertices.size());
