@@ -43,7 +43,6 @@ void Animation2D::update(Directx *dx, PlayerState current_state, PlayerState pre
 
   // Update geometry
   {
-    geometry->update_pos(dx);
-    geometry->update_uv(dx);
+    geometry->update(dx);
   }
 }
