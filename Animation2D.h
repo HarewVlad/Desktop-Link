@@ -19,11 +19,11 @@ struct FramesInfo {
 struct Animation2D {
 public:
   void init(Directx *dx, Geometry *geometry, const std::wstring &filename, AnimationType type);
-  void set_start_frame(float u[4], float v[4], int num_frames, PlayerState type);
-  void update(Directx *dx, PlayerState current_state, PlayerState previous_state, float t);
+  void set_start_frame(float u[4], float v[4], int num_frames, Direction direction);
+  void update(Directx *dx, Direction current_direction, Direction previous_direction, float t);
 public:
   AnimationType type;
   Geometry *geometry;
   ID3D11ShaderResourceView *texture_resource_view;
-  std::unordered_map<PlayerState, FramesInfo *> frames;
+  std::unordered_map<Direction, FramesInfo *> frames;
 };

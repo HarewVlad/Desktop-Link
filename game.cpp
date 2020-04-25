@@ -36,7 +36,7 @@ void Game::on_init() {
   {
     float u[] = { 0, 0, 0.1f, 0.1f };
     float v[] = { 0.125f, 0, 0, 0.125f };
-    player_animation->set_start_frame(u, v, 3, STAND); // FOR STAND
+    player_animation->set_start_frame(u, v, 3, IDLE); // FOR STAND
   }
   // LEFT
   {
@@ -171,6 +171,7 @@ void Game::on_update(float t) {
 }
 
 void Game::on_input(float t) {
+#ifdef MANUAL_CONTROL
   if (GetAsyncKeyState(VK_UP)) {
     player->previous_state = player->current_state;
     player->current_state = UP;
@@ -189,9 +190,20 @@ void Game::on_input(float t) {
   }
 
   player->move();
+#endif
+
+#ifdef AUTO_CONTROL
+
+  if (GetAsyncKeyState(VK_UP) & 0x8000) {
+    player->state = ACTION_OPEN_WINDOW;
+  }
+
+  player->auto_move();
+#endif
 }
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+  srand(time(NULL));
   Game *game = new Game;
   game->on_init();
   game->on_run();

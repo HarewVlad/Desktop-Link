@@ -8,6 +8,7 @@ public:
   void update(Directx *dx);
   void set_uv(float u[4], float v[4]);
   void scale(XMFLOAT3 scaler);
+  void print();
 public:
   ID3D11Buffer *index_buffer;
   ID3D11Buffer *vertex_buffer;

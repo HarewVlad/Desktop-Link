@@ -6,6 +6,7 @@
 #include <map>
 #include <unordered_map>
 #include <string>
+#include <random>
 
 #include <d3d11_1.h>
 #include <dxgi1_2.h>
@@ -13,6 +14,9 @@
 #include <DirectXColors.h>
 #include <d3dcompiler.h>
 #include <DDSTextureLoader.h>
+
+// #define MANUAL_CONTROL
+#define AUTO_CONTROL
 
 using namespace DirectX;
 
@@ -42,17 +46,23 @@ namespace Global
   {
     enum
     {
-      SPEED = 20
+      SPEED = 15,
+      AUTO_MOVE_TIME = 15
     };
   }
 }
 
-enum PlayerState {
-  STAND,
+enum Direction {
+  IDLE,
   RIGHT,
   LEFT,
   UP,
-  DOWN
+  DOWN,
+};
+
+enum PlayerState {
+  ACTION_NONE,
+  ACTION_OPEN_WINDOW,
 };
 
 struct Vertex

@@ -55,3 +55,10 @@ void Geometry::set_uv(float u[4], float v[4]) {
   vertices[2].tex = { u[2], v[2] };
   vertices[3].tex = { u[3], v[3] };
 }
+
+void Geometry::print() {
+  std::string output = "{ (" + std::to_string(vertices[1].pos.x) + ", " + std::to_string(vertices[1].pos.y)
+    + "), (" + std::to_string(vertices[3].pos.x) + ", " + std::to_string(vertices[3].pos.y) + ") }\n";
+
+  OutputDebugStringA(output.c_str());
+}
