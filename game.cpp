@@ -193,11 +193,6 @@ void Game::on_input(float t) {
 #endif
 
 #ifdef AUTO_CONTROL
-
-  if (GetAsyncKeyState(VK_UP) & 0x8000) {
-    player->state = ACTION_OPEN_WINDOW;
-  }
-
   player->auto_move();
 #endif
 }

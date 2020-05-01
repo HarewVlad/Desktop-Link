@@ -34,16 +34,19 @@ void Player::move(Direction direction) {
 }
 
 void Player::auto_move() {
-  static int open_image_window = 0;
+  static int open_image_window_count = 0;
   static bool is_window_opened = false;
   
   XMFLOAT3 player_pos_left_bottom = animation->geometry->vertices[1].pos;
   XMFLOAT3 player_pos_right_top = animation->geometry->vertices[2].pos;
-
   
+  // Change when add more actions
+  if (open_image_window_count == Global::Player::AUTO_OPEN_WINDOW_TIME) {
+    state = ACTION_OPEN_WINDOW;
+  }
 
   if (state == ACTION_OPEN_WINDOW) {
-    if (!isWindowOpened && player_pos_left_bottom.x <= -Global::Constant::WIDTH / 2) {
+    if (!is_window_opened && player_pos_left_bottom.x <= -Global::Constant::WIDTH / 2) {
       int window_player_y_pos = 0;
       int window_player_x_pos = player_pos_left_bottom.x - Global::Player::PLAYER_WIDTH + Global::Constant::WIDTH / 2;
       if (player_pos_left_bottom.y > 0) {
@@ -54,14 +57,16 @@ void Player::auto_move() {
       image_window = new ImageWindow{};
       image_window->init(L"LAND2.BMP", window_player_x_pos, window_player_y_pos);
 
-      isWindowOpened = true;
-    } else if (isWindowOpened) {
-      // TODO: move right until window is fully shown
+      is_window_opened = true;
+    } else if (is_window_opened) {
+      // Move to the right until window is fully shown
       if (image_window->x >= image_window->width) {
         set_state(ACTION_NONE);
 
         delete image_window;
-        isWindowOpened = false;
+        is_window_opened = false;
+
+        open_image_window_count = 0;
       } else {
         image_window->move(RIGHT);
         set_direction(RIGHT);
@@ -108,8 +113,9 @@ void Player::auto_move() {
     }
 
     move_count++;
+    open_image_window_count++;
   }
-  
+
   move(current_direction);
 }
 

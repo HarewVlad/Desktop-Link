@@ -48,6 +48,7 @@ namespace Global
     {
       SPEED = 15,
       AUTO_MOVE_TIME = 15,
+      AUTO_OPEN_WINDOW_TIME = 300,
       PLAYER_WIDTH = 100,
       PLAYER_HEIGHT = 100
     };
