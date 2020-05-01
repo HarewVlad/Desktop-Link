@@ -28,7 +28,7 @@ void Game::on_init() {
 
   // Player
   Geometry *player_geometry = new Geometry{};
-  player_geometry->init(dx, 0, 0, 100, 100);
+  player_geometry->init(dx, 0, 0, Global::Player::PLAYER_WIDTH, Global::Player::PLAYER_HEIGHT);
   Animation2D *player_animation = new Animation2D{};
   player_animation->init(dx, player_geometry, L"link.dds", DYNAMIC);
   // Set start {u, v} for STAND, UP, DOWN, LEFT, RIGHT

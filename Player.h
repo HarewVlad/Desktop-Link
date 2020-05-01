@@ -9,6 +9,7 @@ public:
   void update(Directx *dx, float t);
   void move(Direction direction);
   void set_direction(Direction direction);
+  void set_state(PlayerState state);
   void auto_move();
 public:
   Direction current_direction;

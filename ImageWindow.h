@@ -7,8 +7,8 @@ struct ImageWindow {
 
   HWND window;
   HINSTANCE instance;
-  UINT width;
-  UINT height;
+  int width;
+  int height;
   int x;
   int y;
 };

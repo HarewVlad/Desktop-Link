@@ -47,7 +47,9 @@ namespace Global
     enum
     {
       SPEED = 15,
-      AUTO_MOVE_TIME = 15
+      AUTO_MOVE_TIME = 15,
+      PLAYER_WIDTH = 100,
+      PLAYER_HEIGHT = 100
     };
   }
 }

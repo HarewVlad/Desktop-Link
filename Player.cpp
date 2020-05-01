@@ -34,29 +34,45 @@ void Player::move(Direction direction) {
 }
 
 void Player::auto_move() {
-  static int move_count = 0;
-  static bool isWindowOpened = false;
+  static int open_image_window = 0;
+  static bool is_window_opened = false;
   
   XMFLOAT3 player_pos_left_bottom = animation->geometry->vertices[1].pos;
   XMFLOAT3 player_pos_right_top = animation->geometry->vertices[2].pos;
 
+  
+
   if (state == ACTION_OPEN_WINDOW) {
     if (!isWindowOpened && player_pos_left_bottom.x <= -Global::Constant::WIDTH / 2) {
-      // Open window
+      int window_player_y_pos = 0;
+      int window_player_x_pos = player_pos_left_bottom.x - Global::Player::PLAYER_WIDTH + Global::Constant::WIDTH / 2;
+      if (player_pos_left_bottom.y > 0) {
+        window_player_y_pos = Global::Constant::HEIGHT / 2 - player_pos_left_bottom.y;
+      } else {
+        window_player_y_pos = -player_pos_left_bottom.y + Global::Constant::HEIGHT / 2;
+      }
       image_window = new ImageWindow{};
-      image_window->init(L"ho", player_pos_left_bottom.x + Global::Constant::WIDTH / 2, player_pos_left_bottom.y + Global::Constant::HEIGHT / 2);
-      // Window should contain image
-      // That change state
+      image_window->init(L"LAND2.BMP", window_player_x_pos, window_player_y_pos);
+
       isWindowOpened = true;
     } else if (isWindowOpened) {
-      // Move to right with window
-      image_window->move(RIGHT);
-      set_direction(RIGHT);
+      // TODO: move right until window is fully shown
+      if (image_window->x >= image_window->width) {
+        set_state(ACTION_NONE);
+
+        delete image_window;
+        isWindowOpened = false;
+      } else {
+        image_window->move(RIGHT);
+        set_direction(RIGHT);
+      }
     } else {
       // Move to left to open window
       set_direction(LEFT);
     }
   } else {
+    static int move_count = 0;
+
     if (move_count == Global::Player::AUTO_MOVE_TIME) {
       set_direction(static_cast<Direction>(rand() % (sizeof(PlayerState) + 1)));
       move_count = 0;
@@ -91,7 +107,6 @@ void Player::auto_move() {
       break;
     }
 
-    // Move
     move_count++;
   }
   
@@ -101,4 +116,8 @@ void Player::auto_move() {
 void Player::set_direction(Direction direction) {
   previous_direction = current_direction;
   current_direction = direction;
+}
+
+void Player::set_state(PlayerState state) {
+  this->state = state;
 }
