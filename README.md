@@ -1,6 +1,6 @@
 # Desktop-Link
-Version: 0.01f
+Version: 0.1f
 
-Automata movement and if u press VK_UP, he will go left and open window and go with this window to the right forever. Poogers
+So like he can fu... move and stuff, and sometimes he opens a window with predefined image. Wow
 # Description
-![](link.gif)
+![](linkPog.gif)
